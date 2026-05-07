@@ -1,0 +1,16 @@
+{
+  "name": "schedule-module",
+  "version": "0.1.0",
+  "description": "A reusable scheduling capability module",
+  "main": "cli/index.js",
+  "bin": {
+    "schedule-module": "cli/index.js"
+  },
+  "scripts": {
+    "test": "pytest",
+    "initial": "make initial"
+  },
+  "keywords": ["schedule", "agent", "capability"],
+  "author": "",
+  "license": "MIT"
+}

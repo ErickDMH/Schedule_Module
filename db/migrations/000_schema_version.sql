@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS schedule_module.schema_version (
+    version INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    executed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

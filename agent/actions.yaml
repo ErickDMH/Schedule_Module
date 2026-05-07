@@ -1,0 +1,86 @@
+actions:
+  - name: create_category
+    description: Create a new category for scheduling
+    inputs:
+      name:
+        type: string
+        description: Name of the category
+        required: true
+      description:
+        type: string
+        description: Description of the category
+        required: false
+      color:
+        type: string
+        description: Hex color code
+        required: false
+      icon:
+        type: string
+        description: Icon identifier
+        required: false
+    returns:
+      type: object
+      description: The created category object
+    examples:
+      - input:
+          name: "Work"
+          color: "#FF0000"
+
+  - name: create_scheduled_routine
+    description: Create a scheduled routine with recurrency
+    inputs:
+      name:
+        type: string
+        required: true
+      category_id:
+        type: string
+        required: false
+      start_date_time:
+        type: string
+        description: ISO 8601 formatted datetime string
+        required: true
+      end_date_time:
+        type: string
+        description: ISO 8601 formatted datetime string
+        required: true
+      recurrency:
+        type: string
+        enum: [daily, weekly, biweekly, monthly, custom_days]
+        required: true
+    returns:
+      type: object
+      description: The created ScheduledRoutine object
+
+  - name: create_date_register
+    description: Create an individual date record (event or schedule instance)
+    inputs:
+      type:
+        type: string
+        enum: [event, schedule]
+        required: true
+      name:
+        type: string
+        required: true
+      start_date_time:
+        type: string
+        required: true
+      end_date_time:
+        type: string
+        required: true
+      relationship_field:
+        type: string
+        description: ID or string linking this to an external system entity
+        required: false
+    returns:
+      type: object
+
+  - name: get_records_for_relationship
+    description: Get all date registers associated with an external relationship ID
+    inputs:
+      relationship_field:
+        type: string
+        required: true
+    returns:
+      type: array
+      items:
+        type: object

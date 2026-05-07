@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "schedule-module"
+version = "0.1.0"
+description = "A reusable scheduling capability module"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.28.0",
+    "pydantic>=2.0.0",
+    "python-dateutil>=2.8.2",
+    "pytz>=2023.3"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.1",
+    "testcontainers[postgres]>=3.7.1"
+]
+
+[project.scripts]
+schedule-module-cli = "src.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
