@@ -28,6 +28,8 @@ class DateRegisterRepository:
             "relationship_field": register.relationship_field
         })
         row = result.fetchone()
+        if row is None:
+            raise RuntimeError("INSERT INTO date_register returned no row")
         return DateRegister.model_validate(dict(row._mapping))
 
     async def get_by_relationship(self, relationship_field: str) -> List[DateRegister]:

@@ -28,3 +28,7 @@ schedule-module-cli = "src.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"

@@ -24,6 +24,8 @@ class CategoryRepository:
             "note": category.note
         })
         row = result.fetchone()
+        if row is None:
+            raise RuntimeError("INSERT INTO category returned no row")
         return Category.model_validate(dict(row._mapping))
 
     async def get_by_id(self, category_id: UUID) -> Optional[Category]:

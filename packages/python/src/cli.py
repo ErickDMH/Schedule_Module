@@ -8,7 +8,8 @@ from src.db.connection import DATABASE_URL
 ASYNC_PG_URL = DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_DIR = os.path.join(BASE_DIR, "db")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(BASE_DIR))
+DB_DIR = os.path.join(PROJECT_ROOT, "db")
 
 async def run_sql_file(conn, filepath):
     with open(filepath, "r") as f:

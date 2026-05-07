@@ -25,6 +25,8 @@ class ScheduleRepository:
             "recurrency": routine.recurrency.value
         })
         row = result.fetchone()
+        if row is None:
+            raise RuntimeError("INSERT INTO scheduled_routine returned no row")
         return ScheduledRoutine.model_validate(dict(row._mapping))
 
     async def get_by_id(self, routine_id: UUID) -> Optional[ScheduledRoutine]:
