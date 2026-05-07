@@ -11,22 +11,24 @@ endif
 initial:
 	@echo "Initializing Schedule Module..."
 	@echo "1. Checking environment..."
-	@$(PYTHON) -m venv .venv || true
-	@.venv/bin/python -m pip install --upgrade pip
-	@.venv/bin/pip install -e .[dev]
+	@cd packages/python && $(PYTHON) -m venv .venv || true
+	@cd packages/python && .venv/bin/python -m pip install --upgrade pip
+	@cd packages/python && .venv/bin/pip install -e .[dev]
 	@echo "2. Starting Infrastructure (PostgreSQL)..."
-	@$(DOCKER_COMPOSE) -f infra/docker-compose.yml up -d
+	@$(DOCKER_COMPOSE) -f docker/docker-compose.yml up -d
 	@echo "3. Waiting for PostgreSQL to be ready..."
 	@sleep 5
 	@echo "4. Running Bootstrap and Migrations..."
-	@.venv/bin/python -m src.cli bootstrap
+	@cd packages/python && .venv/bin/python -m src.cli bootstrap
+	@echo "5. Installing TypeScript dependencies..."
+	@cd packages/typescript && npm install
 	@echo "Initialization complete!"
 
 up:
-	@$(DOCKER_COMPOSE) -f infra/docker-compose.yml up -d
+	@$(DOCKER_COMPOSE) -f docker/docker-compose.yml up -d
 
 down:
-	@$(DOCKER_COMPOSE) -f infra/docker-compose.yml down
+	@$(DOCKER_COMPOSE) -f docker/docker-compose.yml down
 
 test:
-	@.venv/bin/pytest tests/
+	@cd packages/python && .venv/bin/pytest tests/
